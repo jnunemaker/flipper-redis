@@ -16,6 +16,16 @@ Or install it yourself with:
 
     $ gem install flipper-redis
 
+## Usage
+
+```ruby
+require 'flipper/adapters/redis'
+client = Redis.new
+adapter = Flipper::Adapters::Redis.new(client)
+flipper = Flipper.new(adapter)
+# profit...
+```
+
 ## Contributing
 
 1. Fork it
