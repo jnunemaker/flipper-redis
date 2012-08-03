@@ -33,8 +33,4 @@ describe Flipper::Adapters::Redis do
   end
 
   it_should_behave_like 'a flipper adapter'
-
-  it "should work with Flipper.new" do
-    Flipper.new(subject).should_not be_nil
-  end
 end
