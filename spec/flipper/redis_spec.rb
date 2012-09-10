@@ -12,10 +12,10 @@ describe Flipper::Adapters::Redis do
   end
 
   def read_key(key)
-    client.get key
+    client.get key.to_s
   rescue RuntimeError => e
     if e.message =~ /wrong kind of value/
-      client.smembers(key).map { |member| member.to_i }.to_set
+      client.smembers(key.to_s).map { |member| member.to_i }.to_set
     else
       raise
     end
@@ -25,10 +25,10 @@ describe Flipper::Adapters::Redis do
     case value
     when Array, Set
       value.each do |member|
-        client.sadd key, member
+        client.sadd key.to_s, member
       end
     else
-      client.set key, value
+      client.set key.to_s, value
     end
   end
 
