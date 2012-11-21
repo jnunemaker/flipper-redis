@@ -15,7 +15,7 @@ describe Flipper::Adapters::Redis do
     client.get key.to_s
   rescue RuntimeError => e
     if e.message =~ /wrong kind of value/
-      client.smembers(key.to_s).map { |member| member.to_i }.to_set
+      client.smembers(key.to_s).to_set
     else
       raise
     end
