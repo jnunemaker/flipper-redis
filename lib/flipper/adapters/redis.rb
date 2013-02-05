@@ -13,7 +13,7 @@ module Flipper
       end
 
       def write(key, value)
-        @client.set key.to_s, value
+        @client.set key.to_s, value.to_s
       end
 
       def delete(key)
@@ -21,11 +21,11 @@ module Flipper
       end
 
       def set_add(key, value)
-        @client.sadd(key.to_s, value)
+        @client.sadd(key.to_s, value.to_s)
       end
 
       def set_delete(key, value)
-        @client.srem(key.to_s, value)
+        @client.srem(key.to_s, value.to_s)
       end
 
       def set_members(key)
