@@ -25,10 +25,10 @@ describe Flipper::Adapters::Redis do
     case value
     when Array, Set
       value.each do |member|
-        client.sadd key.to_s, member
+        client.sadd key.to_s, member.to_s
       end
     else
-      client.set key.to_s, value
+      client.set key.to_s, value.to_s
     end
   end
 
