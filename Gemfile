@@ -4,7 +4,6 @@ gemspec
 gem 'rake'
 gem 'rspec'
 gem 'redis'
-gem 'flipper', :git => 'git://github.com/jnunemaker/flipper.git'
 
 group(:guard) do
   gem 'guard'
