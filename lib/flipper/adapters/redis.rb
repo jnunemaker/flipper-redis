@@ -16,13 +16,18 @@ module Flipper
       # Public
       def get(feature)
         result = {}
+        doc = @client.hgetall(feature.key)
 
         feature.gates.each do |gate|
-          result[gate] = case gate.data_type
+          result[gate.key] = case gate.data_type
           when :boolean, :integer
-            read key(feature, gate)
+            doc[gate.key.to_s]
           when :set
-            set_members key(feature, gate)
+            regex = /^#{Regexp.escape(gate.key)}\//
+
+            gate_keys = doc.keys.select { |key| key =~ regex }
+            gate_values = gate_keys.map { |key| key.split('/', 2).last }
+            gate_values.to_set
           else
             unsupported_data_type(gate.data_type)
           end
@@ -35,9 +40,9 @@ module Flipper
       def enable(feature, gate, thing)
         case gate.data_type
         when :boolean, :integer
-          write key(feature, gate), thing.value.to_s
+          @client.hset feature.key, gate.key, thing.value.to_s
         when :set
-          set_add key(feature, gate), thing.value.to_s
+          @client.hset feature.key, "#{gate.key}/#{thing.value}", 1
         else
           unsupported_data_type(gate.data_type)
         end
@@ -49,13 +54,11 @@ module Flipper
       def disable(feature, gate, thing)
         case gate.data_type
         when :boolean
-          feature.gates.each do |gate|
-            delete key(feature, gate)
-          end
+          @client.del(feature.key)
         when :integer
-          write key(feature, gate), thing.value.to_s
+          @client.hset feature.key, gate.key, thing.value.to_s
         when :set
-          set_delete key(feature, gate), thing.value.to_s
+          @client.hdel feature.key, "#{gate.key}/#{thing.value}"
         else
           unsupported_data_type(gate.data_type)
         end
@@ -65,53 +68,18 @@ module Flipper
 
       # Public: Adds a feature to the set of known features.
       def add(feature)
-        set_add(FeaturesKey, feature.name.to_s)
+        @client.sadd(FeaturesKey.to_s, feature.name.to_s)
         true
       end
 
       # Public: The set of known features.
       def features
-        set_members(FeaturesKey)
-      end
-
-      # Private
-      def key(feature, gate)
-        "#{feature.key}/#{gate.key}"
+        @client.smembers(FeaturesKey.to_s).to_set
       end
 
       # Private
       def unsupported_data_type(data_type)
         raise "#{data_type} is not supported by this adapter"
-      end
-
-      # Private
-      def read(key)
-        @client.get key.to_s
-      end
-
-      # Private
-      def write(key, value)
-        @client.set key.to_s, value.to_s
-      end
-
-      # Private
-      def delete(key)
-        @client.del key.to_s
-      end
-
-      # Private
-      def set_add(key, value)
-        @client.sadd(key.to_s, value.to_s)
-      end
-
-      # Private
-      def set_delete(key, value)
-        @client.srem(key.to_s, value.to_s)
-      end
-
-      # Private
-      def set_members(key)
-        @client.smembers(key.to_s).to_set
       end
     end
   end
