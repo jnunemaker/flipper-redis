@@ -22,4 +22,5 @@ RSpec.configure do |config|
   config.alias_example_to :fit, :focused => true
   config.alias_example_to :xit, :pending => true
   config.run_all_when_everything_filtered = true
+  config.fail_fast = true
 end
