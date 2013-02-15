@@ -15,4 +15,5 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = Flipper::Adapters::Redis::VERSION
   gem.add_dependency 'flipper', '~> 0.4'
+  gem.add_dependency 'redis'
 end

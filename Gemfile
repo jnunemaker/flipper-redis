@@ -3,7 +3,6 @@ gemspec
 
 gem 'rake'
 gem 'rspec'
-gem 'redis'
 
 group(:guard) do
   gem 'guard'
