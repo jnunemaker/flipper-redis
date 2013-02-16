@@ -1,6 +1,6 @@
 # Flipper Redis
 
-A [redis](https://github.com/redis/redis-rb) adapter for [Flipper](https://github.com/jnunemaker/flipper).
+A [Redis](https://github.com/redis/redis-rb) adapter for [Flipper](https://github.com/jnunemaker/flipper).
 
 ## Installation
 
