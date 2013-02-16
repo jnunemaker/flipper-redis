@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 gemspec
 
-gem 'flipper', :git => 'git://github.com/jnunemaker/flipper.git'
 gem 'redis-namespace', :require => false
 gem 'rake'
 gem 'rspec'
