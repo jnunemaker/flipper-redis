@@ -57,15 +57,15 @@ flipper[:stats].enable flipper.actors(45)
 
 flipper[:search].enable
 
-print '# all keys: '
+print 'all keys: '
 pp namespaced_client.keys
 # all keys: ["stats", "flipper_features", "search"]
 
-print "# known flipper features: "
+print "known flipper features: "
 pp namespaced_client.smembers("flipper_features")
 # known flipper features: ["stats", "search"]
 
-puts '# stats keys'
+puts 'stats keys'
 pp namespaced_client.hgetall('stats')
 # stats keys
 # {"boolean"=>"true",
@@ -77,12 +77,12 @@ pp namespaced_client.hgetall('stats')
 #  "actors/90"=>"1",
 #  "actors/180"=>"1"}
 
-puts '# search keys'
+puts 'search keys'
 pp namespaced_client.hgetall('search')
 # search keys
 # {"boolean"=>"true"}
 
-puts '# flipper get of feature'
+puts 'flipper get of feature'
 pp adapter.get(flipper[:stats])
 # flipper get of feature
 # {:boolean=>"true",
