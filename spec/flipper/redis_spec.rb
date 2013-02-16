@@ -5,7 +5,7 @@ require 'flipper/spec/shared_adapter_specs'
 describe Flipper::Adapters::Redis do
   let(:client) { Redis.new }
 
-  subject { Flipper::Adapters::Redis.new(client) }
+  subject { described_class.new(client) }
 
   before do
     client.flushdb
