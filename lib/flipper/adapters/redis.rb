@@ -13,6 +13,9 @@ module Flipper
       # Public: The name of the adapter.
       attr_reader :name
 
+      # Public: Initializes a Redis flipper adapter.
+      #
+      # client - The Redis client to use. Feel free to namespace it.
       def initialize(client)
         @client = client
         @name = :redis

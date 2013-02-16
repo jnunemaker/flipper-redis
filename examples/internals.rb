@@ -1,36 +1,11 @@
-# Flipper Redis
+require 'pp'
+require 'pathname'
+require 'logger'
 
-A redis adapter for [Flipper](https://github.com/jnunemaker/flipper), the feature flipping gems.
+root_path = Pathname(__FILE__).dirname.join('..').expand_path
+lib_path  = root_path.join('lib')
+$:.unshift(lib_path)
 
-## Installation
-
-Add this line to your application's Gemfile:
-
-    gem 'flipper-redis'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself with:
-
-    $ gem install flipper-redis
-
-## Usage
-
-```ruby
-require 'flipper/adapters/redis'
-client = Redis.new
-adapter = Flipper::Adapters::Redis.new(client)
-flipper = Flipper.new(adapter)
-# profit...
-```
-
-## Internals
-
-Currently, each feature is stored in a hash. Getting a feature is therefore one redis call to get all the keys for the feature.
-
-```ruby
 require 'flipper/adapters/redis'
 require 'redis/namespace'
 
@@ -89,12 +64,3 @@ pp adapter.get(flipper[:stats])
 #  :actors=>#<Set: {"25", "90", "180"}>,
 #  :percentage_of_actors=>"45",
 #  :percentage_of_random=>"15"}
-```
-
-## Contributing
-
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Added some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
