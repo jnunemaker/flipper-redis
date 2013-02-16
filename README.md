@@ -1,6 +1,6 @@
 # Flipper Redis
 
-A redis adapter for [Flipper](https://github.com/jnunemaker/flipper), the feature flipping gems.
+A [redis](https://github.com/redis/redis-rb) adapter for [Flipper](https://github.com/jnunemaker/flipper).
 
 ## Installation
 
