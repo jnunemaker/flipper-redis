@@ -28,7 +28,7 @@ flipper = Flipper.new(adapter)
 
 ## Internals
 
-Each feature is stored in a redis hash. Getting a feature is therefore one redis call to get all the keys for the feature.
+Each feature is stored in a redis hash, which means getting a feature is single query.
 
 ```ruby
 require 'flipper/adapters/redis'
