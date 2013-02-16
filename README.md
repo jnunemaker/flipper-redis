@@ -61,6 +61,10 @@ print '# all keys: '
 pp namespaced_client.keys
 # all keys: ["stats", "flipper_features", "search"]
 
+print "# known flipper features: "
+pp namespaced_client.smembers("flipper_features")
+# known flipper features: ["stats", "search"]
+
 puts '# stats keys'
 pp namespaced_client.hgetall('stats')
 # stats keys
