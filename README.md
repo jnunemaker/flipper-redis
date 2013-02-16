@@ -28,7 +28,7 @@ flipper = Flipper.new(adapter)
 
 ## Internals
 
-Currently, each feature is stored in a hash. Getting a feature is therefore one redis call to get all the keys for the feature.
+Currently, each feature is stored in a redis hash. Getting a feature is therefore one redis call to get all the keys for the feature.
 
 ```ruby
 require 'flipper/adapters/redis'
@@ -59,12 +59,10 @@ flipper[:search].enable
 
 print '# all keys: '
 pp namespaced_client.keys
-puts
 # all keys: ["stats", "flipper_features", "search"]
 
 puts '# stats keys'
 pp namespaced_client.hgetall('stats')
-puts
 # stats keys
 # {"boolean"=>"true",
 #  "groups/admins"=>"1",
@@ -77,7 +75,6 @@ puts
 
 puts '# search keys'
 pp namespaced_client.hgetall('search')
-puts
 # search keys
 # {"boolean"=>"true"}
 
