@@ -21,6 +21,32 @@ module Flipper
         @name = :redis
       end
 
+      # Public: The set of known features.
+      def features
+        @client.smembers(FeaturesKey).to_set
+      end
+
+      # Public: Adds a feature to the set of known features.
+      def add(feature)
+        @client.sadd FeaturesKey, feature.name
+        true
+      end
+
+      # Public: Removes a feature from the set of known features.
+      def remove(feature)
+        @client.multi do
+          @client.srem FeaturesKey, feature.name
+          @client.del feature.key
+        end
+        true
+      end
+
+      # Public: Clears the gate values for a feature.
+      def clear(feature)
+        @client.del feature.key
+        true
+      end
+
       # Public: Gets the values for all gates for a given feature.
       #
       # Returns a Hash of Flipper::Gate#key => value.
@@ -83,17 +109,6 @@ module Flipper
         end
 
         true
-      end
-
-      # Public: Adds a feature to the set of known features.
-      def add(feature)
-        @client.sadd FeaturesKey, feature.name
-        true
-      end
-
-      # Public: The set of known features.
-      def features
-        @client.smembers(FeaturesKey).to_set
       end
 
       # Private: Gets a hash of fields => values for the given feature.
