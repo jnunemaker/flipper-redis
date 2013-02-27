@@ -127,7 +127,7 @@ module Flipper
       #
       # Returns a Set of the values enabled for the gate.
       def fields_to_gate_value(fields, gate)
-        regex = /^#{Regexp.escape(gate.key)}\//
+        regex = /^#{Regexp.escape(gate.key.to_s)}\//
         keys = fields.grep(regex)
         values = keys.map { |key| key.split('/', 2).last }
         values.to_set
