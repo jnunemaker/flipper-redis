@@ -16,5 +16,5 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
 
   gem.add_dependency 'flipper', '~> 0.6.0'
-  gem.add_dependency 'redis', '~> 3.0.0'
+  gem.add_dependency 'redis', '>= 2.2', '< 4.0.0'
 end
