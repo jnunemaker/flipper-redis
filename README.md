@@ -92,6 +92,24 @@ pp adapter.get(flipper[:stats])
 #  :percentage_of_random=>"15"}
 ```
 
+## `script/bootstrap`
+
+This script will get all the dependencies ready so you can start hacking.
+
+```
+# to learn more about script/bootstrap
+script/bootstrap help
+```
+
+## `script/test`
+
+For your convenience, there is a script to run the tests. It will also perform `script/bootstrap`, which bundles and all that jazz.
+
+```
+# to learn more about script test
+script/test help
+```
+
 ## Contributing
 
 1. Fork it
