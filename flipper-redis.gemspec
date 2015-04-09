@@ -15,6 +15,6 @@ Gem::Specification.new do |gem|
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
 
-  gem.add_dependency 'flipper', '~> 0.6.0'
+  gem.add_dependency 'flipper', '~> 0.7.0.beta1'
   gem.add_dependency 'redis', '>= 2.2', '< 4.0.0'
 end
